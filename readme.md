@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Simple Calculator — Dark / Light</title>
+  <title>Simple Calculator — Dark / Light (with digit limits)</title>
   <style>
     :root{
       /* Dark theme (defaults) */
@@ -186,6 +186,10 @@
       const themeToggleBtn = document.getElementById('theme-toggle');
       const THEME_KEY = 'calculator-theme'; // 'dark' or 'light'
 
+      // Input/format limits
+      const MAX_SIGNIFICANT = 15; // total significant digits allowed while typing / displayed
+      const MAX_DECIMALS = 10;    // maximum decimal places
+
       // Theme handling
       function applyTheme(theme) {
         if (theme === 'light') {
@@ -217,7 +221,7 @@
         localStorage.setItem(THEME_KEY, next);
       });
 
-      // Calculator logic
+      // Calculator state
       let current = '';
       let previous = '';
       let operation = null;
@@ -249,21 +253,50 @@
           current = '';
           resetNext = false;
         }
+
+        // prevent entering multiple '.' characters
         if (num === '.' && current.includes('.')) return;
+
+        // if starting with '.', make it "0."
         if (num === '.' && current === '') current = '0';
-        // Prevent leading zeros like "00"
-        if (num !== '.' && current === '0') current = num;
-        else current = current + num;
+
+        // prevent multiple leading zeros like "00"
+        if (current === '0' && num === '0') return;
+
+        // Build prospective string for digit counting (only digits matter)
+        const prospective = (current === '' && num === '.' ? '0' : current + num);
+        const digitCount = prospective.replace(/[^0-9]/g, '').length;
+
+        // Enforce significant digits limit
+        if (digitCount > MAX_SIGNIFICANT) return;
+
+        // If already has decimals, enforce decimal places limit
+        if (current.includes('.') && num !== '.') {
+          const decimals = current.split('.')[1] || '';
+          if (decimals.length >= MAX_DECIMALS) return;
+        }
+
+        // Replace leading 0 when entering a non-decimal digit (so typing '05' becomes '5')
+        if (current === '0' && num !== '.') {
+          current = num;
+        } else {
+          current = current + num;
+        }
+
         updateDisplay();
       }
 
       function chooseOperation(op) {
+        // If nothing has been entered, ignore
         if (current === '' && previous === '') return;
+
+        // If there's already a previous and current, compute first (chained ops)
         if (previous !== '' && current !== '') {
           compute();
         } else if (current !== '') {
           previous = current;
         }
+
         operation = op;
         current = '';
         updateDisplay();
@@ -273,7 +306,7 @@
         const prev = parseFloat(previous);
         const curr = parseFloat(current);
 
-        // If there's no explicit previous (user pressed = after single number), do nothing
+        // Need both operands for binary operations
         if (isNaN(prev) || isNaN(curr)) return;
 
         let computation = null;
@@ -293,8 +326,36 @@
             computation = prev / curr; break;
           default: return;
         }
-        computation = Number.isInteger(computation) ? computation : parseFloat(computation.toFixed(10));
-        current = computation.toString();
+
+        // Format the result with limits:
+        let out;
+        if (!Number.isFinite(computation)) {
+          out = 'Error';
+        } else {
+          const abs = Math.abs(computation);
+
+          // Choose exponential for very large or very small results
+          if (abs !== 0 && (abs >= Math.pow(10, MAX_SIGNIFICANT) || abs < Math.pow(10, -MAX_DECIMALS))) {
+            // keep MAX_SIGNIFICANT significant digits in exponential form
+            out = computation.toExponential(MAX_SIGNIFICANT - 1);
+          } else {
+            // Otherwise show with at most MAX_DECIMALS decimals and at most MAX_SIGNIFICANT digits.
+            // First, round to MAX_DECIMALS decimals
+            if (Number.isInteger(computation)) {
+              out = computation.toString();
+            } else {
+              out = parseFloat(computation.toFixed(MAX_DECIMALS)).toString();
+            }
+
+            // If still too many significant digits (e.g., long integer), convert to exponential
+            const sigDigits = out.replace(/[^0-9]/g, '').replace(/^0+/, '').length;
+            if (sigDigits > MAX_SIGNIFICANT) {
+              out = computation.toExponential(MAX_SIGNIFICANT - 1);
+            }
+          }
+        }
+
+        current = out;
         previous = '';
         operation = null;
         resetNext = true;
@@ -359,7 +420,7 @@
         }
       });
 
-      // Initialize display
+      // Initialize
       clearAll();
     })();
   </script>
