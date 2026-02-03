@@ -188,28 +188,6 @@
       <button class="btn span-two equals" data-action="=">=</button>
     </div>
   </main>
-
-  <!-- Help Modal – update content to mention new functions -->
-  <div id="help-modal" class="modal" role="dialog" aria-labelledby="help-title">
-    <div class="modal-content">
-      <span class="modal-close" aria-label="Close">×</span>
-      <h2 id="help-title">Help & Features</h2>
-      <p>Basic + scientific calculator with digit limits.</p>
-      <h3>Scientific Functions (radians)</h3>
-      <ul>
-        <li>sin, cos, tan</li>
-        <li>log (base 10), ln (natural log)</li>
-        <li>√  (square root), x², xʸ (power), ± (toggle sign)</li>
-      </ul>
-      <h3>Keyboard Shortcuts</h3>
-      <ul>
-        <li>0–9 . + - * / Enter Backspace Escape → same as before</li>
-        <li>s → sin, c → cos, t → tan, l → log, n → ln (extra)</li>
-      </ul>
-      <!-- rest same as before -->
-    </div>
-  </div>
-
   <script>
     (function () {
       const displayEl   = document.getElementById('display');
