@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Math Quiz – + / − Under 15 (20s) + Voice</title>
+  <title>Math Quiz – + / − Under 15 (20s) + iOS Voice</title>
 
   <style>
     :root{
@@ -20,7 +20,6 @@
       --badbg:#ffecec; --bad:#8a1f1f;
       --infobg:#eef2ff; --info:#2b3a75;
     }
-
     body.dark{
       --bg1:#0f172a;
       --bg2:#111827;
@@ -36,7 +35,6 @@
       --badbg:#2a0b0b; --bad:#ff9a9a;
       --infobg:#0b1430; --info:#a7b6ff;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -52,7 +50,6 @@
         linear-gradient(135deg, var(--bg1), var(--bg2));
       background-attachment: fixed;
     }
-
     .card{
       width:min(860px, 100%);
       background:var(--card);
@@ -63,7 +60,6 @@
       -webkit-backdrop-filter: blur(10px);
       padding:16px;
     }
-
     .top{
       display:flex; gap:10px;
       justify-content:space-between;
@@ -176,7 +172,7 @@
       font-weight:900;
       background: color-mix(in oklab, var(--cardSolid) 92%, transparent);
       color: var(--ink);
-      max-width: 320px;
+      max-width: 360px;
     }
 
     .btn{
@@ -215,8 +211,8 @@
 <body>
   <div class="card">
     <div class="top">
-      <div class="pill"><span class="k">Ops</span>: <span id="opsText">+ / −</span></div>
-      <div class="pill"><span class="k">Max</span>: <span id="maxText">14</span></div>
+      <div class="pill"><span class="k">Ops</span>: + / −</div>
+      <div class="pill"><span class="k">Max</span>: 14</div>
       <div class="pill"><span class="k">Time</span>: <span id="timeLeft">20</span>s</div>
       <div class="pill"><span class="k">Score</span>: <span id="score">0</span></div>
     </div>
@@ -241,8 +237,8 @@
       </div>
 
       <div class="tog">
-        <label for="voiceSelect">US Microsoft voice</label>
-        <select id="voiceSelect" aria-label="US Microsoft voice"></select>
+        <label for="voiceSelect">Voice</label>
+        <select id="voiceSelect" aria-label="Voice"></select>
       </div>
 
       <button class="btn reset" id="resetBtn" type="button">🔄 Reset</button>
@@ -254,8 +250,8 @@
   // -----------------------------
   // Config (your request)
   // -----------------------------
-  const MAX_VALUE = 14;             // ✅ random under 15 (0..14)
-  const BASE_TIME_SECONDS = 20;     // ✅ time = 20s
+  const MAX_VALUE = 14;          // under 15
+  const TIME_SECONDS = 20;       // 20s timer
   const OPTIONS_COUNT = 3;
 
   // -----------------------------
@@ -269,6 +265,15 @@
     }
     return arr;
   };
+
+  // 0..14 number words (for nicer TTS: "five" not "5")
+  const numberWords = [
+    "zero","one","two","three","four","five","six","seven","eight","nine",
+    "ten","eleven","twelve","thirteen","fourteen"
+  ];
+  function sayNumber(n){
+    return (n >= 0 && n < numberWords.length) ? numberWords[n] : String(n);
+  }
 
   // -----------------------------
   // Elements
@@ -298,24 +303,66 @@
   darkToggle.addEventListener('change', () => applyDark(darkToggle.checked));
 
   // -----------------------------
-  // Voice (US + Microsoft only) + speak selected number too
+  // Voice (cross-device)
+  // - Windows: Microsoft en-US (preferred)
+  // - iOS/macOS: Siri/Apple voices (preferred), then any en-US, then any English
+  // - Android/Chrome: Google voices if present
   // -----------------------------
   const LS_VOICE_ON = 'mq_voiceOn';
   const LS_VOICE_ID = 'mq_voiceId';
 
-  function applyVoice(on){
-    voiceToggle.checked = on;
-    localStorage.setItem(LS_VOICE_ON, on ? '1' : '0');
-  }
-  applyVoice(localStorage.getItem(LS_VOICE_ON) !== '0');
-
-  voiceToggle.addEventListener('change', () => applyVoice(voiceToggle.checked));
+  voiceToggle.checked = (localStorage.getItem(LS_VOICE_ON) !== '0');
+  voiceToggle.addEventListener('change', () => {
+    localStorage.setItem(LS_VOICE_ON, voiceToggle.checked ? '1' : '0');
+  });
 
   let voices = [];
-  function isAllowedVoice(v){
+
+  function isEnglish(v){
+    const lang = (v.lang || '').toLowerCase();
+    return lang.startsWith('en');
+  }
+  function isEnUS(v){
+    const lang = (v.lang || '').toLowerCase();
+    return lang === 'en-us' || lang.startsWith('en-us');
+  }
+
+  // Ranking: smaller = better
+  function voiceRank(v){
     const name = (v.name || '').toLowerCase();
     const lang = (v.lang || '').toLowerCase();
-    return name.includes('microsoft') && (lang === 'en-us' || lang.startsWith('en-us'));
+
+    const microsoft = name.includes('microsoft');
+    const google = name.includes('google');
+    const siri = name.includes('siri');
+    const apple = name.includes('com.apple') || name.includes('apple');
+
+    // Best: Microsoft en-US
+    if (microsoft && isEnUS(v)) return 1;
+
+    // iOS/macOS good: Siri/Apple en-US
+    if ((siri || apple) && isEnUS(v)) return 2;
+
+    // Google en-US
+    if (google && isEnUS(v)) return 3;
+
+    // Any en-US
+    if (isEnUS(v)) return 4;
+
+    // Apple/Siri any English
+    if ((siri || apple) && isEnglish(v)) return 5;
+
+    // Microsoft any English
+    if (microsoft && isEnglish(v)) return 6;
+
+    // Google any English
+    if (google && isEnglish(v)) return 7;
+
+    // Any English
+    if (isEnglish(v)) return 8;
+
+    // Other languages
+    return 999;
   }
 
   function loadVoices(){
@@ -328,32 +375,23 @@
     }
 
     voices = window.speechSynthesis.getVoices() || [];
-    const allowed = voices.filter(isAllowedVoice);
+    const english = voices
+      .filter(v => voiceRank(v) < 999)
+      .sort((a,b) => voiceRank(a) - voiceRank(b) || (a.name||'').localeCompare(b.name||''));
 
     voiceSelect.innerHTML = '';
-    if (!allowed.length){
-      voiceSelect.innerHTML = '<option>No US Microsoft voice found</option>';
+    if (!english.length){
+      voiceSelect.innerHTML = '<option>No English voice found</option>';
       voiceSelect.disabled = true;
       return;
     }
 
     voiceSelect.disabled = false;
 
-    const preferredOrder = ['zira', 'david', 'mark', 'aria', 'guy', 'jenny'];
-    allowed.sort((a,b) => {
-      const an = (a.name||'').toLowerCase();
-      const bn = (b.name||'').toLowerCase();
-      const ai = preferredOrder.findIndex(k => an.includes(k));
-      const bi = preferredOrder.findIndex(k => bn.includes(k));
-      const aa = ai === -1 ? 999 : ai;
-      const bb = bi === -1 ? 999 : bi;
-      if (aa !== bb) return aa - bb;
-      return an.localeCompare(bn);
-    });
-
-    allowed.forEach(v => {
+    // show top 12 only (clean)
+    english.slice(0, 12).forEach(v => {
       const opt = document.createElement('option');
-      opt.value = String(voices.indexOf(v));
+      opt.value = String(voices.indexOf(v)); // store original index
       opt.textContent = `${v.name} (${v.lang})`;
       voiceSelect.appendChild(opt);
     });
@@ -394,13 +432,32 @@
     loadVoices();
   }
 
+  // Important for iOS: speech often requires a user gesture first.
+  // We will "unlock" TTS on first tap anywhere.
+  let ttsUnlocked = false;
+  function unlockTTS(){
+    if (ttsUnlocked) return;
+    ttsUnlocked = true;
+    // tiny silent utterance to unlock on iOS
+    if ('speechSynthesis' in window){
+      const u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      window.speechSynthesis.speak(u);
+      window.speechSynthesis.cancel();
+    }
+    document.removeEventListener('touchend', unlockTTS);
+    document.removeEventListener('click', unlockTTS);
+  }
+  document.addEventListener('touchend', unlockTTS, { once:true });
+  document.addEventListener('click', unlockTTS, { once:true });
+
   // -----------------------------
   // Game state
   // -----------------------------
   let currentAnswer = 0;
   let score = 0;
   let timerId = null;
-  let timeLeft = BASE_TIME_SECONDS;
+  let timeLeft = TIME_SECONDS;
   let locked = false;
 
   function setMessage(text, kind='info', lock=false){
@@ -421,7 +478,7 @@
 
   function startTimer(){
     stopTimer();
-    timeLeft = BASE_TIME_SECONDS;
+    timeLeft = TIME_SECONDS;
     elTimeLeft.textContent = String(timeLeft);
     elBar.style.width = '100%';
 
@@ -429,7 +486,7 @@
       timeLeft -= 1;
       if (timeLeft < 0) timeLeft = 0;
       elTimeLeft.textContent = String(timeLeft);
-      elBar.style.width = ((timeLeft / BASE_TIME_SECONDS) * 100) + '%';
+      elBar.style.width = ((timeLeft / TIME_SECONDS) * 100) + '%';
 
       if (timeLeft <= 0){
         onTimeUp();
@@ -446,31 +503,29 @@
   }
 
   // -----------------------------
-  // Question generation (only + and - , under 15)
-  // Results kept within 0..14 for easy kids math.
+  // Only + and −, all values under 15 (0..14)
+  // Keep answers within 0..14
   // -----------------------------
   function newQuestion(){
     lockChoices(false);
     setMessage('Pick the correct answer', 'info', false);
 
     const op = Math.random() < 0.5 ? '+' : '−';
-
     let a, b, ans;
 
     if (op === '+'){
       a = randInt(0, MAX_VALUE);
-      b = randInt(0, MAX_VALUE - a);  // ensures ans <= 14
+      b = randInt(0, MAX_VALUE - a);  // ans <= 14
       ans = a + b;
     } else {
       a = randInt(0, MAX_VALUE);
-      b = randInt(0, a);              // ensures non-negative
+      b = randInt(0, a);              // ans >= 0
       ans = a - b;
     }
 
     currentAnswer = ans;
     elQ.textContent = `${a} ${op} ${b} = ?`;
 
-    // 3 options (unique) within 0..14
     const options = new Set([currentAnswer]);
     while (options.size < OPTIONS_COUNT){
       const delta = randInt(-6, 6);
@@ -493,8 +548,7 @@
       btn.addEventListener('click', () => {
         if (locked) return;
 
-        // ✅ Speak the number user clicked
-        speak(String(v));
+        const spokenNumber = sayNumber(v);
 
         if (v === currentAnswer){
           stopTimer();
@@ -503,14 +557,16 @@
           elScore.textContent = String(score);
 
           setMessage('🎉 Correct! Great job!', 'ok', true);
-          // ✅ Also speak "Correct" after saying the number
-          setTimeout(() => speak('Correct!'), 250);
+
+          // ✅ Speak "number + Correct" together (example: "Five. Correct!")
+          speak(`${spokenNumber}. Correct!`);
 
           setTimeout(newQuestion, 900);
         } else {
           setMessage('❌ Try again!', 'bad', false);
-          // ✅ Speak "Try again" after saying the number
-          setTimeout(() => speak('Try again.'), 250);
+
+          // ✅ Speak "number + Try again" together
+          speak(`${spokenNumber}. Try again.`);
         }
       });
 
@@ -531,7 +587,6 @@
   resetBtn.addEventListener('click', resetGame);
 
   // Start
-  document.getElementById('maxText').textContent = String(MAX_VALUE);
   newQuestion();
 })();
 </script>
