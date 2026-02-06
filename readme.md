@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Math Quiz – + / − Under 15 (20s) + iOS Voice</title>
+  <title>Math Quiz – Levels (Beginner/Primary/Upper) + Voice</title>
 
   <style>
     :root{
@@ -35,6 +35,7 @@
       --badbg:#2a0b0b; --bad:#ff9a9a;
       --infobg:#0b1430; --info:#a7b6ff;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -50,8 +51,9 @@
         linear-gradient(135deg, var(--bg1), var(--bg2));
       background-attachment: fixed;
     }
+
     .card{
-      width:min(860px, 100%);
+      width:min(920px, 100%);
       background:var(--card);
       border:1px solid color-mix(in oklab, var(--border) 80%, transparent);
       border-radius:20px;
@@ -60,6 +62,7 @@
       -webkit-backdrop-filter: blur(10px);
       padding:16px;
     }
+
     .top{
       display:flex; gap:10px;
       justify-content:space-between;
@@ -95,16 +98,17 @@
     .choices{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap:12px;
+      gap:14px;
       margin-top: 10px;
     }
+    /* ✅ Bigger answers */
     button.choice{
       border:2px solid var(--border);
       background: color-mix(in oklab, var(--cardSolid) 92%, transparent);
       border-radius:18px;
-      padding:16px 10px;
+      padding:22px 10px;
       font-weight:1000;
-      font-size: clamp(20px, 5.5vw, 32px);
+      font-size: clamp(28px, 6.2vw, 44px);  /* bigger */
       cursor:pointer;
       transition: transform .06s ease, border-color .15s ease, background .15s ease;
     }
@@ -123,6 +127,7 @@
       border:1px solid transparent;
       min-height:22px;
       user-select:none;
+      font-size: 16px;
     }
     .msg.ok{ background:var(--okbg); color:var(--ok); border-color: color-mix(in oklab, var(--ok) 25%, transparent); }
     .msg.bad{ background:var(--badbg); color:var(--bad); border-color: color-mix(in oklab, var(--bad) 25%, transparent); }
@@ -211,8 +216,11 @@
 <body>
   <div class="card">
     <div class="top">
-      <div class="pill"><span class="k">Ops</span>: + / −</div>
-      <div class="pill"><span class="k">Max</span>: 14</div>
+      <div class="pill"><span class="k">Level</span>:
+        <strong id="levelName">Beginner</strong>
+      </div>
+      <div class="pill"><span class="k">Ops</span>: <span id="opsText">+ / −</span></div>
+      <div class="pill"><span class="k">Max</span>: <span id="maxText">14</span></div>
       <div class="pill"><span class="k">Time</span>: <span id="timeLeft">20</span>s</div>
       <div class="pill"><span class="k">Score</span>: <span id="score">0</span></div>
     </div>
@@ -226,6 +234,15 @@
     <div class="bar-wrap"><div class="bar" id="bar"></div></div>
 
     <div class="controls">
+      <div class="tog">
+        <label for="levelSelect">Choose Level</label>
+        <select id="levelSelect" aria-label="Choose level">
+          <option value="beginner">Beginner (under 15)</option>
+          <option value="primary">Primary (under 25)</option>
+          <option value="upper">Upper (under 55, + − × ÷)</option>
+        </select>
+      </div>
+
       <div class="tog">
         <input type="checkbox" id="darkToggle" />
         <label for="darkToggle">Dark mode</label>
@@ -247,16 +264,21 @@
 
 <script>
 (() => {
-  // -----------------------------
-  // Config (your request)
-  // -----------------------------
-  const MAX_VALUE = 14;          // under 15
-  const TIME_SECONDS = 20;       // 20s timer
+  // ---------------------------------------------------
+  // Level configs (your request)
+  // ---------------------------------------------------
+  const LEVELS = {
+    beginner: { name: "Beginner", max: 14, ops: ['+','−'], allowDivide: false },
+    primary:  { name: "Primary",  max: 24, ops: ['+','−'], allowDivide: false },
+    upper:    { name: "Upper",    max: 54, ops: ['+','−','×','÷'], allowDivide: true }
+  };
+
+  const TIME_SECONDS = 20;
   const OPTIONS_COUNT = 3;
 
-  // -----------------------------
+  // ---------------------------------------------------
   // Helpers
-  // -----------------------------
+  // ---------------------------------------------------
   const randInt = (min, max) => Math.floor(Math.random()*(max-min+1))+min;
   const shuffle = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -266,33 +288,46 @@
     return arr;
   };
 
-  // 0..14 number words (for nicer TTS: "five" not "5")
-  const numberWords = [
-    "zero","one","two","three","four","five","six","seven","eight","nine",
-    "ten","eleven","twelve","thirteen","fourteen"
-  ];
+  // Number-to-words (0..60) for TTS quality
+  const ones = ["zero","one","two","three","four","five","six","seven","eight","nine"];
+  const teens = ["ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+  const tens = ["","","twenty","thirty","forty","fifty","sixty"];
   function sayNumber(n){
-    return (n >= 0 && n < numberWords.length) ? numberWords[n] : String(n);
+    n = Math.round(n);
+    if (n < 0) return "minus " + sayNumber(-n);
+    if (n < 10) return ones[n];
+    if (n < 20) return teens[n - 10];
+    if (n < 70){
+      const t = Math.floor(n/10);
+      const r = n%10;
+      return r === 0 ? tens[t] : `${tens[t]} ${ones[r]}`;
+    }
+    return String(n);
   }
 
-  // -----------------------------
+  // ---------------------------------------------------
   // Elements
-  // -----------------------------
+  // ---------------------------------------------------
+  const elLevelName = document.getElementById('levelName');
+  const elOpsText = document.getElementById('opsText');
+  const elMaxText = document.getElementById('maxText');
   const elTimeLeft = document.getElementById('timeLeft');
   const elScore = document.getElementById('score');
+
   const elQ = document.getElementById('question');
   const elChoices = document.getElementById('choices');
   const elMsg = document.getElementById('message');
   const elBar = document.getElementById('bar');
 
+  const levelSelect = document.getElementById('levelSelect');
   const darkToggle = document.getElementById('darkToggle');
   const voiceToggle = document.getElementById('voiceToggle');
   const voiceSelect = document.getElementById('voiceSelect');
   const resetBtn = document.getElementById('resetBtn');
 
-  // -----------------------------
+  // ---------------------------------------------------
   // Dark mode (saved)
-  // -----------------------------
+  // ---------------------------------------------------
   const LS_DARK = 'mq_dark';
   function applyDark(on){
     document.body.classList.toggle('dark', on);
@@ -302,12 +337,9 @@
   applyDark(localStorage.getItem(LS_DARK) === '1');
   darkToggle.addEventListener('change', () => applyDark(darkToggle.checked));
 
-  // -----------------------------
+  // ---------------------------------------------------
   // Voice (cross-device)
-  // - Windows: Microsoft en-US (preferred)
-  // - iOS/macOS: Siri/Apple voices (preferred), then any en-US, then any English
-  // - Android/Chrome: Google voices if present
-  // -----------------------------
+  // ---------------------------------------------------
   const LS_VOICE_ON = 'mq_voiceOn';
   const LS_VOICE_ID = 'mq_voiceId';
 
@@ -327,41 +359,21 @@
     return lang === 'en-us' || lang.startsWith('en-us');
   }
 
-  // Ranking: smaller = better
   function voiceRank(v){
     const name = (v.name || '').toLowerCase();
-    const lang = (v.lang || '').toLowerCase();
-
     const microsoft = name.includes('microsoft');
     const google = name.includes('google');
     const siri = name.includes('siri');
     const apple = name.includes('com.apple') || name.includes('apple');
 
-    // Best: Microsoft en-US
     if (microsoft && isEnUS(v)) return 1;
-
-    // iOS/macOS good: Siri/Apple en-US
     if ((siri || apple) && isEnUS(v)) return 2;
-
-    // Google en-US
     if (google && isEnUS(v)) return 3;
-
-    // Any en-US
     if (isEnUS(v)) return 4;
-
-    // Apple/Siri any English
     if ((siri || apple) && isEnglish(v)) return 5;
-
-    // Microsoft any English
     if (microsoft && isEnglish(v)) return 6;
-
-    // Google any English
     if (google && isEnglish(v)) return 7;
-
-    // Any English
     if (isEnglish(v)) return 8;
-
-    // Other languages
     return 999;
   }
 
@@ -388,10 +400,9 @@
 
     voiceSelect.disabled = false;
 
-    // show top 12 only (clean)
     english.slice(0, 12).forEach(v => {
       const opt = document.createElement('option');
-      opt.value = String(voices.indexOf(v)); // store original index
+      opt.value = String(voices.indexOf(v));
       opt.textContent = `${v.name} (${v.lang})`;
       voiceSelect.appendChild(opt);
     });
@@ -432,13 +443,11 @@
     loadVoices();
   }
 
-  // Important for iOS: speech often requires a user gesture first.
-  // We will "unlock" TTS on first tap anywhere.
+  // iOS: unlock TTS after first gesture
   let ttsUnlocked = false;
   function unlockTTS(){
     if (ttsUnlocked) return;
     ttsUnlocked = true;
-    // tiny silent utterance to unlock on iOS
     if ('speechSynthesis' in window){
       const u = new SpeechSynthesisUtterance(' ');
       u.volume = 0;
@@ -451,9 +460,10 @@
   document.addEventListener('touchend', unlockTTS, { once:true });
   document.addEventListener('click', unlockTTS, { once:true });
 
-  // -----------------------------
+  // ---------------------------------------------------
   // Game state
-  // -----------------------------
+  // ---------------------------------------------------
+  let currentLevelKey = 'beginner';
   let currentAnswer = 0;
   let score = 0;
   let timerId = null;
@@ -502,35 +512,78 @@
     setTimeout(newQuestion, 900);
   }
 
-  // -----------------------------
-  // Only + and −, all values under 15 (0..14)
-  // Keep answers within 0..14
-  // -----------------------------
+  function applyLevelUI(){
+    const cfg = LEVELS[currentLevelKey];
+    elLevelName.textContent = cfg.name;
+    elMaxText.textContent = String(cfg.max);
+    elOpsText.textContent = cfg.ops.join(' ');
+  }
+
+  // ---------------------------------------------------
+  // Question generation for each level
+  // - Beginner/Primary: +/−, answers 0..max
+  // - Upper: +/−/×/÷, answers kept integer and within 0..max
+  // ---------------------------------------------------
   function newQuestion(){
     lockChoices(false);
     setMessage('Pick the correct answer', 'info', false);
 
-    const op = Math.random() < 0.5 ? '+' : '−';
-    let a, b, ans;
+    const cfg = LEVELS[currentLevelKey];
+    const max = cfg.max;
+    const op = cfg.ops[randInt(0, cfg.ops.length - 1)];
+
+    let a=0, b=0, ans=0, symbol=op;
 
     if (op === '+'){
-      a = randInt(0, MAX_VALUE);
-      b = randInt(0, MAX_VALUE - a);  // ans <= 14
+      a = randInt(0, max);
+      b = randInt(0, max - a);   // keep ans <= max
       ans = a + b;
-    } else {
-      a = randInt(0, MAX_VALUE);
-      b = randInt(0, a);              // ans >= 0
+      symbol = '+';
+    } else if (op === '−'){
+      a = randInt(0, max);
+      b = randInt(0, a);         // keep ans >= 0
       ans = a - b;
+      symbol = '−';
+    } else if (op === '×'){
+      // pick answer <= max, then choose factor pair
+      ans = randInt(0, max);
+      const pairs = [];
+      for (let x = 0; x <= max; x++){
+        if (x === 0){ if (ans === 0) pairs.push([0, randInt(0, Math.min(10,max))]); continue; }
+        if (ans % x === 0){
+          const y = ans / x;
+          if (y <= max) pairs.push([x, y]);
+        }
+      }
+      const filtered = pairs.filter(p => p[0] !== 1 && p[1] !== 1);
+      const use = filtered.length ? filtered : pairs;
+      const pick = use[randInt(0, use.length - 1)];
+      a = pick[0]; b = pick[1];
+      symbol = '×';
+    } else {
+      // ÷ : ensure integer result, within 0..max
+      ans = randInt(0, max);
+      b = randInt(1, Math.min(12, max)); // divisor (avoid 0)
+      a = ans * b;
+      // ensure a within reasonable range; if too big, retry once
+      if (a > max) { // keep displayed numbers not too large
+        // rebuild with smaller b
+        b = randInt(1, Math.max(1, Math.floor(max / Math.max(ans,1))));
+        a = ans * b;
+      }
+      symbol = '÷';
     }
 
     currentAnswer = ans;
-    elQ.textContent = `${a} ${op} ${b} = ?`;
+    elQ.textContent = `${a} ${symbol} ${b} = ?`;
 
+    // Options: correct + 2 wrong within 0..max (unique)
     const options = new Set([currentAnswer]);
+    const spread = Math.max(6, Math.floor(max / 6));
     while (options.size < OPTIONS_COUNT){
-      const delta = randInt(-6, 6);
+      const delta = randInt(-spread, spread);
       const candidate = currentAnswer + delta;
-      if (candidate >= 0 && candidate <= MAX_VALUE) options.add(candidate);
+      if (candidate >= 0 && candidate <= max) options.add(candidate);
     }
 
     renderChoices(shuffle(Array.from(options)));
@@ -558,14 +611,12 @@
 
           setMessage('🎉 Correct! Great job!', 'ok', true);
 
-          // ✅ Speak "number + Correct" together (example: "Five. Correct!")
+          // Speak "number + correct" together
           speak(`${spokenNumber}. Correct!`);
 
           setTimeout(newQuestion, 900);
         } else {
           setMessage('❌ Try again!', 'bad', false);
-
-          // ✅ Speak "number + Try again" together
           speak(`${spokenNumber}. Try again.`);
         }
       });
@@ -574,19 +625,28 @@
     });
   }
 
-  // -----------------------------
-  // Reset
-  // -----------------------------
+  // ---------------------------------------------------
+  // Level select + reset
+  // ---------------------------------------------------
+  levelSelect.addEventListener('change', () => {
+    currentLevelKey = levelSelect.value;
+    applyLevelUI();
+    // restart question, keep score (or reset if you want)
+    newQuestion();
+  });
+
   function resetGame(){
     stopTimer();
     score = 0;
     elScore.textContent = '0';
+    applyLevelUI();
     newQuestion();
   }
 
   resetBtn.addEventListener('click', resetGame);
 
   // Start
+  applyLevelUI();
   newQuestion();
 })();
 </script>
