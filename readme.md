@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Math Quiz – Clean Mobile + Gradient + Dark Mode + US/Microsoft Voices</title>
+  <title>Math Quiz – + / − Under 15 (20s) + Voice</title>
 
   <style>
     :root{
@@ -21,7 +21,6 @@
       --infobg:#eef2ff; --info:#2b3a75;
     }
 
-    /* Dark mode tokens */
     body.dark{
       --bg1:#0f172a;
       --bg2:#111827;
@@ -47,7 +46,6 @@
       padding:16px;
       display:grid;
       place-items:center;
-      /* Gradient background */
       background:
         radial-gradient(1200px 600px at 20% 10%, color-mix(in oklab, var(--bg1) 70%, transparent), transparent 60%),
         radial-gradient(1200px 700px at 80% 30%, color-mix(in oklab, var(--bg2) 55%, transparent), transparent 60%),
@@ -67,18 +65,14 @@
     }
 
     .top{
-      display:flex;
-      gap:10px;
+      display:flex; gap:10px;
       justify-content:space-between;
       align-items:center;
       flex-wrap:wrap;
       margin-bottom:10px;
     }
-
     .pill{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
+      display:inline-flex; gap:8px; align-items:center;
       padding:8px 12px;
       border-radius:999px;
       background:var(--pill);
@@ -90,37 +84,16 @@
     }
     .pill .k{opacity:.8; font-weight:800; color:var(--muted)}
 
-    /* Question: always fit on mobile */
     .q{
       text-align:center;
       font-weight:1000;
       letter-spacing:.3px;
       margin:12px 0 8px;
-      font-size: clamp(34px, 8.5vw, 60px);
-      line-height: 1.1;
+      font-size: clamp(34px, 9vw, 66px);
+      line-height: 1.05;
       word-break: break-word;
       overflow-wrap: anywhere;
       padding-inline: 6px;
-    }
-
-    .subrow{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      flex-wrap:wrap;
-      margin: 6px 0 10px;
-    }
-    .badge{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      padding:8px 12px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: color-mix(in oklab, var(--cardSolid) 92%, transparent);
-      font-weight:1000;
-      user-select:none;
-      white-space:nowrap;
     }
 
     .choices{
@@ -135,7 +108,7 @@
       border-radius:18px;
       padding:16px 10px;
       font-weight:1000;
-      font-size: clamp(20px, 5vw, 30px);
+      font-size: clamp(20px, 5.5vw, 32px);
       cursor:pointer;
       transition: transform .06s ease, border-color .15s ease, background .15s ease;
     }
@@ -184,9 +157,7 @@
     }
 
     .tog{
-      display:flex;
-      gap:8px;
-      align-items:center;
+      display:flex; gap:8px; align-items:center;
       padding:10px 12px;
       border-radius:14px;
       border:1px solid var(--border);
@@ -205,7 +176,7 @@
       font-weight:900;
       background: color-mix(in oklab, var(--cardSolid) 92%, transparent);
       color: var(--ink);
-      max-width: 260px;
+      max-width: 320px;
     }
 
     .btn{
@@ -219,7 +190,6 @@
     }
     .btn:hover{ background: color-mix(in oklab, var(--accent) 10%, var(--cardSolid)); }
 
-    /* Big reset */
     .btn.reset{
       border-color: color-mix(in oklab, #ff6b6b 40%, var(--border));
       background: color-mix(in oklab, #ff6b6b 15%, var(--cardSolid));
@@ -230,11 +200,6 @@
 
     .disabled{ pointer-events:none; opacity:.55; }
 
-    /* Kids mode */
-    body.kids .q{ font-size: clamp(40px, 10vw, 70px); }
-    body.kids button.choice{ padding:22px 10px; font-size: clamp(24px, 6vw, 34px); }
-
-    /* Mobile: cleaner stacking + full width buttons */
     @media (max-width: 520px){
       body{ padding:12px; }
       .card{ padding:14px; border-radius:18px; }
@@ -250,16 +215,10 @@
 <body>
   <div class="card">
     <div class="top">
-      <div class="pill"><span class="k">Level</span>: <span id="level">1</span></div>
-      <div class="pill"><span class="k">Ops</span>: <span id="opsText">+</span></div>
-      <div class="pill"><span class="k">Time</span>: <span id="timeLeft">15</span>s</div>
+      <div class="pill"><span class="k">Ops</span>: <span id="opsText">+ / −</span></div>
+      <div class="pill"><span class="k">Max</span>: <span id="maxText">14</span></div>
+      <div class="pill"><span class="k">Time</span>: <span id="timeLeft">20</span>s</div>
       <div class="pill"><span class="k">Score</span>: <span id="score">0</span></div>
-    </div>
-
-    <div class="subrow">
-      <div class="badge">⭐ Streak: <span id="streak">0</span></div>
-      <div class="badge">✨ Stars: <span id="stars">0</span></div>
-      <div class="badge" id="medal">🥉 Bronze</div>
     </div>
 
     <div class="q" id="question"></div>
@@ -272,11 +231,6 @@
 
     <div class="controls">
       <div class="tog">
-        <input type="checkbox" id="kidsToggle" />
-        <label for="kidsToggle">Kids mode</label>
-      </div>
-
-      <div class="tog">
         <input type="checkbox" id="darkToggle" />
         <label for="darkToggle">Dark mode</label>
       </div>
@@ -287,8 +241,8 @@
       </div>
 
       <div class="tog">
-        <label for="voiceSelect">US/Microsoft voice</label>
-        <select id="voiceSelect" aria-label="US/Microsoft voice"></select>
+        <label for="voiceSelect">US Microsoft voice</label>
+        <select id="voiceSelect" aria-label="US Microsoft voice"></select>
       </div>
 
       <button class="btn reset" id="resetBtn" type="button">🔄 Reset</button>
@@ -298,14 +252,11 @@
 <script>
 (() => {
   // -----------------------------
-  // Config
+  // Config (your request)
   // -----------------------------
-  const BASE_TIME_SECONDS = 15;      // ✅ time increased to 15s
-  const LEVEL_UP_EVERY = 5;
-  const ANSWER_MIN = 0;
-  const ANSWER_MAX = 19;             // under 20
-  const STREAK_BONUS_EVERY = 5;
-  const STREAK_BONUS_STARS = 2;
+  const MAX_VALUE = 14;             // ✅ random under 15 (0..14)
+  const BASE_TIME_SECONDS = 20;     // ✅ time = 20s
+  const OPTIONS_COUNT = 3;
 
   // -----------------------------
   // Helpers
@@ -322,73 +273,49 @@
   // -----------------------------
   // Elements
   // -----------------------------
-  const elLevel = document.getElementById('level');
-  const elOpsText = document.getElementById('opsText');
   const elTimeLeft = document.getElementById('timeLeft');
   const elScore = document.getElementById('score');
-  const elStreak = document.getElementById('streak');
-  const elStars = document.getElementById('stars');
-  const elMedal = document.getElementById('medal');
-
   const elQ = document.getElementById('question');
   const elChoices = document.getElementById('choices');
   const elMsg = document.getElementById('message');
   const elBar = document.getElementById('bar');
 
-  const kidsToggle = document.getElementById('kidsToggle');
   const darkToggle = document.getElementById('darkToggle');
   const voiceToggle = document.getElementById('voiceToggle');
   const voiceSelect = document.getElementById('voiceSelect');
   const resetBtn = document.getElementById('resetBtn');
 
   // -----------------------------
-  // Theme + preferences (localStorage)
+  // Dark mode (saved)
   // -----------------------------
-  const LS = {
-    kids: 'mq_kids',
-    dark: 'mq_dark',
-    voiceOn: 'mq_voiceOn',
-    voiceId: 'mq_voiceId'
-  };
-
-  function applyKids(on){
-    document.body.classList.toggle('kids', on);
-    kidsToggle.checked = on;
-    localStorage.setItem(LS.kids, on ? '1' : '0');
-  }
+  const LS_DARK = 'mq_dark';
   function applyDark(on){
     document.body.classList.toggle('dark', on);
     darkToggle.checked = on;
-    localStorage.setItem(LS.dark, on ? '1' : '0');
+    localStorage.setItem(LS_DARK, on ? '1' : '0');
   }
+  applyDark(localStorage.getItem(LS_DARK) === '1');
+  darkToggle.addEventListener('change', () => applyDark(darkToggle.checked));
+
+  // -----------------------------
+  // Voice (US + Microsoft only) + speak selected number too
+  // -----------------------------
+  const LS_VOICE_ON = 'mq_voiceOn';
+  const LS_VOICE_ID = 'mq_voiceId';
+
   function applyVoice(on){
     voiceToggle.checked = on;
-    localStorage.setItem(LS.voiceOn, on ? '1' : '0');
+    localStorage.setItem(LS_VOICE_ON, on ? '1' : '0');
   }
+  applyVoice(localStorage.getItem(LS_VOICE_ON) !== '0');
 
-  // Load saved preferences
-  applyKids(localStorage.getItem(LS.kids) === '1');
-  applyDark(localStorage.getItem(LS.dark) === '1');
-  applyVoice(localStorage.getItem(LS.voiceOn) !== '0'); // default ON
-
-  kidsToggle.addEventListener('change', () => applyKids(kidsToggle.checked));
-  darkToggle.addEventListener('change', () => applyDark(darkToggle.checked));
   voiceToggle.addEventListener('change', () => applyVoice(voiceToggle.checked));
 
-  // -----------------------------
-  // Voice (US + Microsoft only)
-  // -----------------------------
   let voices = [];
-
   function isAllowedVoice(v){
     const name = (v.name || '').toLowerCase();
     const lang = (v.lang || '').toLowerCase();
-    const isMicrosoft = name.includes('microsoft');
-    const isUS = lang === 'en-us' || lang.startsWith('en-us');
-    // Only show voices that are BOTH good standard options:
-    // - Microsoft voices (Windows)
-    // - US English language
-    return isMicrosoft && isUS;
+    return name.includes('microsoft') && (lang === 'en-us' || lang.startsWith('en-us'));
   }
 
   function loadVoices(){
@@ -412,7 +339,6 @@
 
     voiceSelect.disabled = false;
 
-    // Put common ones first if present
     const preferredOrder = ['zira', 'david', 'mark', 'aria', 'guy', 'jenny'];
     allowed.sort((a,b) => {
       const an = (a.name||'').toLowerCase();
@@ -427,28 +353,28 @@
 
     allowed.forEach(v => {
       const opt = document.createElement('option');
-      opt.value = String(voices.indexOf(v)); // store original index
+      opt.value = String(voices.indexOf(v));
       opt.textContent = `${v.name} (${v.lang})`;
       voiceSelect.appendChild(opt);
     });
 
-    // Restore saved voice if exists
-    const saved = localStorage.getItem(LS.voiceId);
+    const saved = localStorage.getItem(LS_VOICE_ID);
     if (saved && [...voiceSelect.options].some(o => o.value === saved)){
       voiceSelect.value = saved;
     } else {
       voiceSelect.value = voiceSelect.options[0].value;
-      localStorage.setItem(LS.voiceId, voiceSelect.value);
+      localStorage.setItem(LS_VOICE_ID, voiceSelect.value);
     }
   }
 
   voiceSelect.addEventListener('change', () => {
-    localStorage.setItem(LS.voiceId, voiceSelect.value);
+    localStorage.setItem(LS_VOICE_ID, voiceSelect.value);
   });
 
   function speak(text){
     if (!voiceToggle.checked) return;
     if (!('speechSynthesis' in window)) return;
+    if (voiceSelect.disabled) return;
 
     window.speechSynthesis.cancel();
 
@@ -471,45 +397,11 @@
   // -----------------------------
   // Game state
   // -----------------------------
-  let level = 1;
-  let score = 0;
-  let streak = 0;
-  let stars = 0;
   let currentAnswer = 0;
-
+  let score = 0;
   let timerId = null;
-  let timeTotal = BASE_TIME_SECONDS;
   let timeLeft = BASE_TIME_SECONDS;
   let locked = false;
-
-  function opsForLevel(lv){
-    if (lv <= 1) return ['+'];          // Level 1 only +
-    if (lv === 2) return ['+','−'];     // Level 2 mix +/−
-    return ['+','−','×'];               // Level 3 include ×
-  }
-
-  function timeForLevel(lv){
-    // Base 15 seconds, slightly faster per level, min 8 seconds
-    return Math.max(8, BASE_TIME_SECONDS - (lv - 1));
-  }
-
-  function updateMedal(){
-    // 1-2 bronze, 3-4 silver, 5-6 gold, 7+ diamond
-    let text = '🥉 Bronze';
-    if (level >= 7) text = '💎 Diamond';
-    else if (level >= 5) text = '🥇 Gold';
-    else if (level >= 3) text = '🥈 Silver';
-    elMedal.textContent = text;
-  }
-
-  function updateStats(){
-    elLevel.textContent = String(level);
-    elScore.textContent = String(score);
-    elStreak.textContent = String(streak);
-    elStars.textContent = String(stars);
-    elOpsText.textContent = opsForLevel(level).join(' ');
-    updateMedal();
-  }
 
   function setMessage(text, kind='info', lock=false){
     elMsg.textContent = text;
@@ -529,8 +421,7 @@
 
   function startTimer(){
     stopTimer();
-    timeTotal = timeForLevel(level);
-    timeLeft = timeTotal;
+    timeLeft = BASE_TIME_SECONDS;
     elTimeLeft.textContent = String(timeLeft);
     elBar.style.width = '100%';
 
@@ -538,89 +429,53 @@
       timeLeft -= 1;
       if (timeLeft < 0) timeLeft = 0;
       elTimeLeft.textContent = String(timeLeft);
-      elBar.style.width = ((timeLeft / timeTotal) * 100) + '%';
+      elBar.style.width = ((timeLeft / BASE_TIME_SECONDS) * 100) + '%';
 
-      if (timeLeft <= 0) onTimeUp();
+      if (timeLeft <= 0){
+        onTimeUp();
+      }
     }, 1000);
   }
 
   function onTimeUp(){
     stopTimer();
     lockChoices(true);
-    streak = 0;
-    updateStats();
-
     setMessage("⏰ Time's up!", 'bad', true);
     speak("Time's up!");
-
     setTimeout(newQuestion, 900);
   }
 
-  function maybeLevelUp(){
-    const newLevel = 1 + Math.floor(score / LEVEL_UP_EVERY);
-    if (newLevel !== level){
-      level = newLevel;
-      updateStats();
-      setMessage(`🔥 Level up! Level ${level}`, 'info', true);
-      speak(`Level up! Level ${level}`);
-      setTimeout(() => setMessage('Pick the correct answer', 'info', false), 700);
-    }
-  }
-
   // -----------------------------
-  // Question generation (answer under 20)
+  // Question generation (only + and - , under 15)
+  // Results kept within 0..14 for easy kids math.
   // -----------------------------
   function newQuestion(){
     lockChoices(false);
     setMessage('Pick the correct answer', 'info', false);
 
-    const ops = opsForLevel(level);
-    const op = ops[randInt(0, ops.length - 1)];
-    let a=0, b=0, ans=0, symbol=op;
+    const op = Math.random() < 0.5 ? '+' : '−';
 
-    // Increase range a bit with level but keep answer 0..19
-    const maxN = Math.min(19, 8 + level * 3);
+    let a, b, ans;
 
     if (op === '+'){
-      a = randInt(0, maxN);
-      b = randInt(0, Math.min(maxN, ANSWER_MAX - a));
+      a = randInt(0, MAX_VALUE);
+      b = randInt(0, MAX_VALUE - a);  // ensures ans <= 14
       ans = a + b;
-      symbol = '+';
-    } else if (op === '−'){
-      a = randInt(0, maxN);
-      b = randInt(0, a);
-      ans = a - b;
-      symbol = '−';
     } else {
-      ans = randInt(0, ANSWER_MAX);
-      const pairs = [];
-      for (let x = 0; x <= ANSWER_MAX; x++){
-        if (x === 0){
-          if (ans === 0) pairs.push([0, randInt(0, 9)]);
-          continue;
-        }
-        if (ans % x === 0){
-          const y = ans / x;
-          if (y <= ANSWER_MAX) pairs.push([x, y]);
-        }
-      }
-      const filtered = pairs.filter(p => p[0] !== 1 && p[1] !== 1);
-      const use = filtered.length ? filtered : pairs;
-      const pick = use[randInt(0, use.length - 1)];
-      a = pick[0]; b = pick[1];
-      symbol = '×';
+      a = randInt(0, MAX_VALUE);
+      b = randInt(0, a);              // ensures non-negative
+      ans = a - b;
     }
 
     currentAnswer = ans;
-    elQ.textContent = `${a} ${symbol} ${b} = ?`;
+    elQ.textContent = `${a} ${op} ${b} = ?`;
 
-    // Options: correct + 2 wrong unique within 0..19
+    // 3 options (unique) within 0..14
     const options = new Set([currentAnswer]);
-    const spread = Math.min(10, 6 + level);
-    while (options.size < 3){
-      const delta = randInt(-spread, spread);
+    while (options.size < OPTIONS_COUNT){
+      const delta = randInt(-6, 6);
       const candidate = currentAnswer + delta;
-      if (candidate >= ANSWER_MIN && candidate <= ANSWER_MAX) options.add(candidate);
+      if (candidate >= 0 && candidate <= MAX_VALUE) options.add(candidate);
     }
 
     renderChoices(shuffle(Array.from(options)));
@@ -638,30 +493,24 @@
       btn.addEventListener('click', () => {
         if (locked) return;
 
+        // ✅ Speak the number user clicked
+        speak(String(v));
+
         if (v === currentAnswer){
           stopTimer();
           lockChoices(true);
-
           score += 1;
-          streak += 1;
-          stars += 1;
-
-          if (streak > 0 && streak % STREAK_BONUS_EVERY === 0){
-            stars += STREAK_BONUS_STARS;
-          }
-
-          updateStats();
-          maybeLevelUp();
+          elScore.textContent = String(score);
 
           setMessage('🎉 Correct! Great job!', 'ok', true);
-          speak('Correct!');
+          // ✅ Also speak "Correct" after saying the number
+          setTimeout(() => speak('Correct!'), 250);
 
-          setTimeout(newQuestion, 800);
+          setTimeout(newQuestion, 900);
         } else {
-          streak = 0;
-          updateStats();
           setMessage('❌ Try again!', 'bad', false);
-          speak('Try again.');
+          // ✅ Speak "Try again" after saying the number
+          setTimeout(() => speak('Try again.'), 250);
         }
       });
 
@@ -674,19 +523,15 @@
   // -----------------------------
   function resetGame(){
     stopTimer();
-    level = 1;
     score = 0;
-    streak = 0;
-    stars = 0;
-    updateStats();
-    elMsg.dataset.locked = '';
+    elScore.textContent = '0';
     newQuestion();
   }
 
   resetBtn.addEventListener('click', resetGame);
 
   // Start
-  updateStats();
+  document.getElementById('maxText').textContent = String(MAX_VALUE);
   newQuestion();
 })();
 </script>
