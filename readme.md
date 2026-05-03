@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<img width="980" height="980" alt="image" src="https://github.com/user-attachments/assets/0ba561fc-d3b4-43e6-a02f-6e74b7bd5793" /><img width="225" height="225" alt="image" src="https://github.com/user-attachments/assets/6a60ea1e-b673-47da-b6bf-447302a1d14c" /><!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -279,7 +279,7 @@
                 desc: 'Access to GPT-4, DALL-E 3 image generation, advanced data analysis, and priority access.',
                 price: 20.00,
                 billing: '/mo',
-                imgUrl: 'https://placehold.co/100x100/10b981/ffffff?text=GPT', // <-- PASTE YOUR IMAGE URL HERE
+                imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/500px-ChatGPT-Logo.svg.png', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-emerald-400',
                 bgLight: 'bg-emerald-400/10',
                 stock: 45,
@@ -293,7 +293,7 @@
                 desc: 'Anthropic\'s most powerful AI. Huge context window, advanced reasoning, and coding capabilities.',
                 price: 20.00,
                 billing: '/mo',
-                imgUrl: 'https://placehold.co/100x100/f97316/ffffff?text=Claude', // <-- PASTE YOUR IMAGE URL HERE
+                imgUrl: '[https://placehold.co/100x100/f97316/ffffff?text=Claude](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9NAHBHbG_tj_AFFrJGCKAWEPDRtvFL28sug&s)', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-orange-400',
                 bgLight: 'bg-orange-400/10',
                 stock: 0,
@@ -307,10 +307,10 @@
                 desc: 'Google\'s Ultra 1.0 model. Seamless integration with Workspace apps and elite coding assistance.',
                 price: 19.99,
                 billing: '/mo',
-                imgUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=Gemini', // <-- PASTE YOUR IMAGE URL HERE
+                imgUrl: 'https://logowik.com/content/uploads/images/google-ai-gemini91216.logowik.com.webp', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-400',
                 bgLight: 'bg-blue-400/10',
-                stock: 12,
+                stock: 9,
                 features: ['Access to Google\'s most capable AI model, Ultra 1.0', 'State-of-the-art coding, reasoning, and creative collaboration', 'Integration with Gmail, Docs, and other Workspace apps', '2TB of Google One cloud storage included'],
                 howToDeal: 'You will receive an invitation link to a premium Google One family plan. Accept the invite to unlock Gemini Advanced on your personal Google account.'
             },
@@ -321,11 +321,10 @@
                 desc: 'Unlock millions of premium templates, images, brand kits, and Magic Studio AI tools.',
                 price: 14.99,
                 billing: '/mo',
-                imgUrl: '![Uploading image.png…]()
-', // <-- PASTE YOUR IMAGE URL HERE
+                imgUrl: 'https://public.canva.site/logo/media/dfb96cc174513093cd6ed61489ccb750.svg', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-cyan-400',
                 bgLight: 'bg-cyan-400/10',
-                stock: 59,
+                stock: 85,
                 features: ['100+ million premium stock photos, videos, and graphics', 'Magic Studio AI tools (Magic Eraser, Magic Edit, etc.)', 'Brand Kit to manage logos, colors, and fonts', 'Background remover with one click'],
                 howToDeal: 'We will send a team invitation link to your email. Click it to join our Enterprise team with full Pro features on your own private Canva account.'
             },
@@ -353,7 +352,7 @@
                 imgUrl: 'https://placehold.co/100x100/2563eb/ffffff?text=Coursera', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-600',
                 bgLight: 'bg-blue-500/10',
-                stock: 99,
+                stock: 79,
                 features: ['Unlimited access to 7,000+ courses and specializations', 'Earn professional certificates from Google, IBM, etc.', 'Learn at your own pace with offline viewing', 'Access to premium guided projects'],
                 howToDeal: 'After checkout, you will receive an activation code. Log in to Coursera, go to the redeem page, and enter your code to start learning immediately.'
             },
@@ -367,7 +366,7 @@
                 imgUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=LinkedIn', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-400',
                 bgLight: 'bg-blue-400/10',
-                stock: 63,
+                stock: 3,
                 features: ['Access to 20,000+ expert-led courses across business, tech, and creative', 'Earn certificates to display directly on your LinkedIn profile', 'Personalized course recommendations based on your career goals', 'Full access to LinkedIn Premium features (if selected)'],
                 howToDeal: 'We will send an activation email. Ensure you are logged into your LinkedIn account, click the link, and the premium learning features will be tied to your profile.'
             }
