@@ -292,7 +292,7 @@
                 desc: 'Anthropic\'s most powerful AI. Huge context window, advanced reasoning, and coding capabilities.',
                 price: 20.00,
                 billing: '/mo',
-                imgUrl: '[https://placehold.co/100x100/f97316/ffffff?text=Claude](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9NAHBHbG_tj_AFFrJGCKAWEPDRtvFL28sug&s)', // <-- PASTE YOUR IMAGE URL HERE
+                imgUrl: 'https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/claude-ai-icon.png', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-orange-400',
                 bgLight: 'bg-orange-400/10',
                 stock: 0,
