@@ -345,14 +345,14 @@
                 id: 'coursera-plus',
                 name: 'Coursera Premium',
                 category: 'learning',
-                desc: 'Unlimited access to 7,000+ courses, Projects, and Professional Certificates from top universities.',
+                desc: 'Unlimited access to 4,000+ courses, Projects, and Professional Certificates from top universities.',
                 price: 39.00,
                 billing: '/mo',
                 imgUrl: 'https://placehold.co/100x100/2563eb/ffffff?text=Coursera', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-600',
                 bgLight: 'bg-blue-500/10',
                 stock: 79,
-                features: ['Unlimited access to 7,000+ courses and specializations', 'Earn professional certificates from Google, IBM, etc.', 'Learn at your own pace with offline viewing', 'Access to premium guided projects'],
+                features: ['Upgrad your personal account','Unlimited access to 4,000+ courses and specializations', 'Earn professional certificates from Google, IBM, etc.', 'Learn at your own pace with offline viewing', 'Access to premium guided projects'],
                 howToDeal: 'After checkout, you will receive an activation code. Log in to Coursera, go to the redeem page, and enter your code to start learning immediately.'
             },
             {
