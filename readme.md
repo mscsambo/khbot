@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -279,7 +279,7 @@
                 desc: 'Access to GPT-4, DALL-E 3 image generation, advanced data analysis, and priority access.',
                 price: 20.00,
                 billing: '/mo',
-                icon: 'message-square',
+                imgUrl: 'https://placehold.co/100x100/10b981/ffffff?text=GPT', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-emerald-400',
                 bgLight: 'bg-emerald-400/10',
                 stock: 45,
@@ -293,7 +293,7 @@
                 desc: 'Anthropic\'s most powerful AI. Huge context window, advanced reasoning, and coding capabilities.',
                 price: 20.00,
                 billing: '/mo',
-                icon: 'cpu',
+                imgUrl: 'https://placehold.co/100x100/f97316/ffffff?text=Claude', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-orange-400',
                 bgLight: 'bg-orange-400/10',
                 stock: 0,
@@ -307,7 +307,7 @@
                 desc: 'Google\'s Ultra 1.0 model. Seamless integration with Workspace apps and elite coding assistance.',
                 price: 19.99,
                 billing: '/mo',
-                icon: 'sparkles',
+                imgUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=Gemini', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-400',
                 bgLight: 'bg-blue-400/10',
                 stock: 12,
@@ -321,10 +321,11 @@
                 desc: 'Unlock millions of premium templates, images, brand kits, and Magic Studio AI tools.',
                 price: 14.99,
                 billing: '/mo',
-                icon: 'palette',
+                imgUrl: '![Uploading image.png…]()
+', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-cyan-400',
                 bgLight: 'bg-cyan-400/10',
-                stock: 5,
+                stock: 59,
                 features: ['100+ million premium stock photos, videos, and graphics', 'Magic Studio AI tools (Magic Eraser, Magic Edit, etc.)', 'Brand Kit to manage logos, colors, and fonts', 'Background remover with one click'],
                 howToDeal: 'We will send a team invitation link to your email. Click it to join our Enterprise team with full Pro features on your own private Canva account.'
             },
@@ -335,7 +336,7 @@
                 desc: 'Premium video editing tools, advanced AI effects, cloud storage, and watermark removal.',
                 price: 9.99,
                 billing: '/mo',
-                icon: 'video',
+                imgUrl: 'https://placehold.co/100x100/ffffff/000000?text=CapCut', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-white',
                 bgLight: 'bg-white/10',
                 stock: 0,
@@ -344,12 +345,12 @@
             },
             {
                 id: 'coursera-plus',
-                name: 'Coursera Plus',
+                name: 'Coursera Premium',
                 category: 'learning',
                 desc: 'Unlimited access to 7,000+ courses, Projects, and Professional Certificates from top universities.',
                 price: 39.00,
                 billing: '/mo',
-                icon: 'graduation-cap',
+                imgUrl: 'https://placehold.co/100x100/2563eb/ffffff?text=Coursera', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-600',
                 bgLight: 'bg-blue-500/10',
                 stock: 99,
@@ -363,10 +364,10 @@
                 desc: 'Develop in-demand skills with 20,000+ expert-led courses. Earn certificates for your profile.',
                 price: 29.99,
                 billing: '/mo',
-                icon: 'linkedin',
+                imgUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=LinkedIn', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-400',
                 bgLight: 'bg-blue-400/10',
-                stock: 3,
+                stock: 63,
                 features: ['Access to 20,000+ expert-led courses across business, tech, and creative', 'Earn certificates to display directly on your LinkedIn profile', 'Personalized course recommendations based on your career goals', 'Full access to LinkedIn Premium features (if selected)'],
                 howToDeal: 'We will send an activation email. Ensure you are logged into your LinkedIn account, click the link, and the premium learning features will be tied to your profile.'
             }
@@ -432,8 +433,8 @@
                         <div class="absolute top-4 right-4 w-10 h-10 rounded-full ${product.bgLight} flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                             <i data-lucide="arrow-up-right" class="w-5 h-5 ${product.color}"></i>
                         </div>
-                        <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center mb-6 mt-2 shadow-inner border border-slate-700">
-                            <i data-lucide="${product.icon}" class="w-7 h-7 ${product.color}"></i>
+                        <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center mb-6 mt-2 shadow-inner border border-slate-700 overflow-hidden">
+                            <img src="${product.imgUrl}" alt="${product.name} logo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/1e293b/ffffff?text=Logo'">
                         </div>
                         <h3 class="text-xl font-bold mb-2">${product.name}</h3>
                         <p class="text-slate-400 text-sm flex-grow mb-6 line-clamp-3">${product.desc}</p>
@@ -542,8 +543,8 @@
                         <button onclick="removeFromCart('${item.id}')" class="absolute -top-2 -right-2 bg-slate-700 text-slate-300 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white">
                             <i data-lucide="x" class="w-3 h-3"></i>
                         </button>
-                        <div class="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="${item.icon}" class="w-6 h-6 ${item.color}"></i>
+                        <div class="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="${item.imgUrl}" alt="${item.name} logo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/1e293b/ffffff?text=Logo'">
                         </div>
                         <div class="flex-grow">
                             <h4 class="font-semibold text-sm truncate pr-4">${item.name}</h4>
@@ -603,8 +604,8 @@
             productModal.innerHTML = `
                 <div class="p-6 border-b border-slate-800 flex justify-between items-start bg-slate-900 rounded-t-2xl flex-shrink-0">
                     <div class="flex items-center gap-4">
-                        <div class="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center shadow-inner border border-slate-700">
-                            <i data-lucide="${product.icon}" class="w-8 h-8 ${product.color}"></i>
+                        <div class="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center shadow-inner border border-slate-700 overflow-hidden">
+                            <img src="${product.imgUrl}" alt="${product.name} logo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/1e293b/ffffff?text=Logo'">
                         </div>
                         <div>
                             <h2 class="text-2xl font-bold text-white">${product.name}</h2>
@@ -630,6 +631,19 @@
                         <h3 class="text-lg font-semibold text-white mb-2">How to Redeem</h3>
                         <div class="bg-slate-800/50 border border-slate-700 p-4 rounded-xl text-slate-400 text-sm">
                             <p class="flex items-start gap-3"><i data-lucide="info" class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5"></i> <span>${product.howToDeal}</span></p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Need Support?</h3>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <a href="https://t.me/linktome1" target="_blank" rel="noopener noreferrer" class="flex-1 flex items-center justify-center gap-2 bg-[#2AABEE]/10 hover:bg-[#2AABEE]/20 border border-[#2AABEE]/20 p-3 rounded-xl transition-colors text-[#2AABEE] text-sm font-medium">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                Contact Support
+                            </a>
+                            <a href="https://t.me/learningadventure" target="_blank" rel="noopener noreferrer" class="flex-1 flex items-center justify-center gap-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 p-3 rounded-xl transition-colors text-indigo-400 text-sm font-medium">
+                                <i data-lucide="users" class="w-4 h-4"></i>
+                                Join Channel
+                            </a>
                         </div>
                     </div>
                 </div>
