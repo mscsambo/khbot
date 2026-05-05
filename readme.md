@@ -276,7 +276,7 @@
                 name: 'ChatGPT Plus',
                 category: 'ai',
                 desc: 'Access to GPT-4, DALL-E 3 image generation, advanced data analysis, and priority access.',
-                price: 20.00,
+                price: 5.00,
                 billing: '/mo',
                 imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/500px-ChatGPT-Logo.svg.png', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-emerald-400',
@@ -304,7 +304,7 @@
                 name: 'Gemini Advanced',
                 category: 'ai',
                 desc: 'Google\'s Ultra 1.0 model. Seamless integration with Workspace apps and elite coding assistance.',
-                price: 19.99,
+                price: 8,
                 billing: '/mo',
                 imgUrl: 'https://logowik.com/content/uploads/images/google-ai-gemini91216.logowik.com.webp', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-400',
@@ -318,7 +318,7 @@
                 name: 'Canva Pro',
                 category: 'creative',
                 desc: 'Unlock millions of premium templates, images, brand kits, and Magic Studio AI tools.',
-                price: 14.99,
+                price: 3,
                 billing: '/mo',
                 imgUrl: 'https://public.canva.site/logo/media/dfb96cc174513093cd6ed61489ccb750.svg', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-cyan-400',
@@ -332,7 +332,7 @@
                 name: 'CapCut Pro',
                 category: 'creative',
                 desc: 'Premium video editing tools, advanced AI effects, cloud storage, and watermark removal.',
-                price: 9.99,
+                price: 2.5,
                 billing: '/mo',
                 imgUrl: 'https://placehold.co/100x100/ffffff/000000?text=CapCut', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-white',
@@ -346,7 +346,7 @@
                 name: 'Coursera Premium',
                 category: 'learning',
                 desc: 'Unlimited access to 4,000+ courses, Projects, and Professional Certificates from top universities.',
-                price: 39.00,
+                price: 25,
                 billing: '/mo',
                 imgUrl: 'https://placehold.co/100x100/2563eb/ffffff?text=Coursera', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-600',
@@ -360,7 +360,7 @@
                 name: 'LinkedIn Learning',
                 category: 'learning',
                 desc: 'Develop in-demand skills with 20,000+ expert-led courses. Earn certificates for your profile.',
-                price: 29.99,
+                price: 14.99,
                 billing: '/mo',
                 imgUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=LinkedIn', // <-- PASTE YOUR IMAGE URL HERE
                 color: 'text-blue-400',
