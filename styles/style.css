@@ -20,13 +20,11 @@ body {
     text-decoration:none;
 }
 
-.logo img{
-    width:48px;
-    height:48px;
-    object-fit:contain;
-    border-radius:12px;
+.logo img {
+    width: 50px !important;
+    height: 50px !important;
+    object-fit: contain;
 }
-
 .logo span{
     font-size:1.4rem;
     font-weight:700;
