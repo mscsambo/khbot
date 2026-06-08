@@ -13,6 +13,26 @@ body {
     background-color: #f9f9f9;
 }
 
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+}
+
+.logo img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+    border-radius:12px;
+}
+
+.logo span{
+    font-size:1.4rem;
+    font-weight:700;
+    color:var(--text-color);
+}
+
 /* Dark mode support */
 body.dark-mode {
     background-color: #1a1a1a;
