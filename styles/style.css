@@ -682,3 +682,305 @@ footer p {
         font-size: 1.55rem !important;
     }
 }
+
+/* =========================================================
+   Learning365 Mobile Header + Bottom Navigation
+   Branding: Purple / Blue / Gold
+========================================================= */
+
+:root {
+    --l365-primary: #5e4fcc;
+    --l365-dark: #322b66;
+    --l365-deep: #1f1a46;
+    --l365-blue: #007bff;
+    --l365-gold: #e5aa25;
+    --l365-white: #ffffff;
+    --l365-muted: #9a9ab3;
+}
+
+/* Hide bottom nav on desktop */
+.mobile-bottom-nav {
+    display: none;
+}
+
+/* ================================
+   Mobile View
+================================ */
+@media (max-width: 768px) {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        padding-bottom: 104px;
+    }
+
+    /* Header */
+    .header {
+        height: 78px !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 8px 24px rgba(50, 43, 102, 0.08) !important;
+    }
+
+    .nav-container {
+        width: 100% !important;
+        max-width: none !important;
+        height: 78px !important;
+        padding: 0 16px !important;
+        margin: 0 !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .logo {
+        margin: 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        text-align: center !important;
+        white-space: nowrap !important;
+        text-decoration: none !important;
+    }
+
+    .logo img {
+        width: 48px !important;
+        height: 48px !important;
+        object-fit: contain !important;
+        display: block !important;
+    }
+
+    .logo span {
+        font-size: 1.35rem !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+        color: #333 !important;
+    }
+
+    .nav-menu {
+        display: none !important;
+    }
+
+    .mobile-menu-btn {
+        display: none !important;
+    }
+
+    /* Bottom Navigation */
+    .mobile-bottom-nav {
+        position: fixed;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        height: 76px;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        align-items: center;
+
+        background:
+            radial-gradient(circle at top left, rgba(94, 79, 204, 0.22), transparent 38%),
+            radial-gradient(circle at bottom right, rgba(229, 170, 37, 0.18), transparent 38%),
+            linear-gradient(135deg, rgba(18, 18, 28, 0.96), rgba(34, 30, 62, 0.96));
+
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 26px;
+
+        box-shadow:
+            0 20px 45px rgba(0, 0, 0, 0.35),
+            0 8px 18px rgba(50, 43, 102, 0.20),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+        z-index: 3000;
+        overflow: hidden;
+    }
+
+    .mobile-bottom-nav::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 22px;
+        right: 22px;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.45),
+            transparent
+        );
+        pointer-events: none;
+    }
+
+    .bottom-nav-item {
+        height: 100%;
+        position: relative;
+        z-index: 1;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        gap: 5px;
+        text-decoration: none;
+
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 0.72rem;
+        font-weight: 700;
+        line-height: 1;
+
+        transition: all 0.25s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .bottom-nav-item i {
+        font-size: 1.25rem;
+        line-height: 1;
+        transition: all 0.25s ease;
+    }
+
+    .bottom-nav-item span {
+        font-size: 0.72rem;
+        line-height: 1;
+    }
+
+    .bottom-nav-item.active {
+        color: #ffffff;
+    }
+
+    .bottom-nav-item.active i {
+        color: var(--l365-gold);
+        transform: translateY(-2px);
+        text-shadow: 0 0 18px rgba(229, 170, 37, 0.38);
+    }
+
+    .bottom-nav-item.active::before {
+        content: "";
+        position: absolute;
+        top: 9px;
+        width: 34px;
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--l365-gold), var(--l365-primary));
+        box-shadow: 0 0 16px rgba(229, 170, 37, 0.35);
+    }
+
+    .bottom-nav-item.active::after {
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 18px;
+
+        background: linear-gradient(
+            135deg,
+            rgba(229, 170, 37, 0.16),
+            rgba(94, 79, 204, 0.24)
+        );
+
+        z-index: -1;
+    }
+
+    .bottom-nav-item:hover {
+        color: #ffffff;
+    }
+
+    .bottom-nav-item:active {
+        transform: scale(0.94);
+    }
+
+    /* Telegram floating button moves above bottom nav */
+    .telegram-float {
+        width: 50px !important;
+        height: 50px !important;
+        right: 18px !important;
+        bottom: 106px !important;
+
+        font-size: 1.2rem !important;
+        background: linear-gradient(135deg, #00a6ff, var(--l365-blue)) !important;
+
+        box-shadow:
+            0 12px 28px rgba(0, 123, 255, 0.28),
+            0 4px 12px rgba(0, 0, 0, 0.18) !important;
+    }
+
+    .telegram-float:hover {
+        transform: scale(1.06) !important;
+    }
+}
+
+/* ================================
+   Small Mobile
+================================ */
+@media (max-width: 480px) {
+    body {
+        padding-bottom: 96px;
+    }
+
+    .header {
+        height: 72px !important;
+    }
+
+    .nav-container {
+        height: 72px !important;
+        padding: 0 14px !important;
+    }
+
+    .logo {
+        gap: 9px !important;
+    }
+
+    .logo img {
+        width: 44px !important;
+        height: 44px !important;
+    }
+
+    .logo span {
+        font-size: 1.24rem !important;
+    }
+
+    .mobile-bottom-nav {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        height: 72px;
+        border-radius: 23px;
+    }
+
+    .bottom-nav-item {
+        gap: 5px;
+    }
+
+    .bottom-nav-item i {
+        font-size: 1.16rem;
+    }
+
+    .bottom-nav-item span {
+        font-size: 0.68rem;
+    }
+
+    .bottom-nav-item.active::before {
+        top: 8px;
+        width: 30px;
+        height: 4px;
+    }
+
+    .bottom-nav-item.active::after {
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+    }
+
+    .telegram-float {
+        width: 48px !important;
+        height: 48px !important;
+        right: 14px !important;
+        bottom: 94px !important;
+    }
+}
