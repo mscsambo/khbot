@@ -529,92 +529,41 @@ footer p {
     transform: scale(1.1);
 }
 
-/* Mobile bottom nav hidden on desktop */
+/* =========================================================
+   Learning365 Bottom Menu - Clean Mobile App Style
+   Like attached reference
+========================================================= */
+
+/* Hide on desktop */
 .l365-app-bottom-nav {
     display: none !important;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero {
-        padding: 80px 0;
-    }
-
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .product-hero h1 {
-        font-size: 2rem;
-    }
-
-    .product-detail-card {
-        padding: 20px;
-    }
-
-    .footer-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .section-title h2 {
-        font-size: 2rem;
-    }
-
-    .product-logo-wrap {
-        width: 50px;
-        height: 50px;
-    }
-}
-
-/* =========================================================
-   Mobile App Bottom Navigation
-   Like attached reference image
-========================================================= */
+/* Mobile only */
 @media only screen and (max-width: 991px) {
     body {
-        padding-bottom: 92px !important;
+        padding-bottom: 82px !important;
     }
 
-    /* Hide top menu on mobile */
     .nav-menu,
     .mobile-menu-btn {
         display: none !important;
     }
 
-    /* Mobile header */
+    /* Header clean center */
     .header {
-        height: 78px !important;
+        height: 76px !important;
         background: #ffffff !important;
         position: sticky !important;
         top: 0 !important;
         z-index: 2000 !important;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
     }
 
     .nav-container {
         width: 100% !important;
         max-width: none !important;
-        height: 78px !important;
+        height: 76px !important;
         padding: 0 16px !important;
         margin: 0 !important;
         display: flex !important;
@@ -632,102 +581,98 @@ footer p {
     }
 
     .logo img {
-        width: 54px !important;
-        height: 54px !important;
+        width: 52px !important;
+        height: 52px !important;
         object-fit: contain !important;
     }
 
     .logo span {
-        font-size: 1.55rem !important;
+        font-size: 1.45rem !important;
         font-weight: 800 !important;
         color: #333333 !important;
         line-height: 1 !important;
     }
 
-    /* Bottom app menu */
+    /* Bottom bar */
     .l365-app-bottom-nav {
         position: fixed !important;
         left: 0 !important;
         right: 0 !important;
         bottom: 0 !important;
+
         width: 100% !important;
         height: 78px !important;
-
-        padding: 6px 18px calc(6px + env(safe-area-inset-bottom)) !important;
+        padding: 5px 18px calc(5px + env(safe-area-inset-bottom)) !important;
 
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
         align-items: center !important;
 
-        background: #050506 !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.10) !important;
+        background: #050505 !important;
+        border-top: 1px solid #1c1c1f !important;
 
-        box-shadow:
-            0 -10px 30px rgba(0, 0, 0, 0.35),
-            inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35) !important;
 
         z-index: 99999 !important;
     }
 
+    .l365-app-bottom-nav a,
+    .l365-app-bottom-nav a:visited,
+    .l365-app-bottom-nav a:hover,
+    .l365-app-bottom-nav a:focus,
+    .l365-app-bottom-nav a:active {
+        text-decoration: none !important;
+    }
+
     .l365-nav-item {
-        height: 66px !important;
+        height: 68px !important;
+        position: relative !important;
 
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        gap: 5px !important;
+        gap: 6px !important;
 
-        position: relative !important;
-
-        color: #9b9ba3 !important;
-        text-decoration: none !important;
-        border: none !important;
-        outline: none !important;
-
-        font-size: 0.74rem !important;
+        color: #9d9da3 !important;
+        font-size: 12px !important;
         font-weight: 700 !important;
         line-height: 1 !important;
 
-        -webkit-tap-highlight-color: transparent !important;
-        transition: all 0.2s ease !important;
-    }
+        border: none !important;
+        outline: none !important;
+        background: transparent !important;
 
-    .l365-nav-item:hover,
-    .l365-nav-item:focus,
-    .l365-nav-item:active {
-        text-decoration: none !important;
-        color: #ffffff !important;
+        -webkit-tap-highlight-color: transparent !important;
     }
 
     .l365-nav-icon {
-        width: auto !important;
-        height: auto !important;
-
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
 
-        font-size: 1.55rem !important;
-        line-height: 1 !important;
-        color: inherit !important;
+        width: 28px !important;
+        height: 28px !important;
 
-        transition: all 0.2s ease !important;
+        color: inherit !important;
+        font-size: 24px !important;
+        line-height: 1 !important;
     }
 
     .l365-nav-icon i {
         color: inherit !important;
-        font-size: inherit !important;
+        font-size: 24px !important;
         line-height: 1 !important;
     }
 
     .l365-nav-label {
-        font-size: 0.74rem !important;
+        color: inherit !important;
+        font-size: 12px !important;
         font-weight: 700 !important;
         line-height: 1 !important;
-        color: inherit !important;
     }
 
+    /* Active item */
     .l365-nav-item.active {
         color: #ffffff !important;
     }
@@ -735,20 +680,21 @@ footer p {
     .l365-nav-item.active::before {
         content: "" !important;
         position: absolute !important;
-        top: 3px !important;
-        width: 46px !important;
+        top: 2px !important;
+        width: 42px !important;
         height: 4px !important;
         border-radius: 999px !important;
-        background: rgba(255, 255, 255, 0.75) !important;
+        background: #d9d9d9 !important;
     }
 
-    .l365-nav-item.active .l365-nav-icon {
+    .l365-nav-item.active .l365-nav-icon,
+    .l365-nav-item.active .l365-nav-icon i,
+    .l365-nav-item.active .l365-nav-label {
         color: #ffffff !important;
-        transform: translateY(-1px) !important;
     }
 
     .l365-nav-item:active {
-        transform: scale(0.94) !important;
+        transform: scale(0.96) !important;
     }
 
     /* Telegram button above bottom menu */
@@ -756,17 +702,17 @@ footer p {
         width: 52px !important;
         height: 52px !important;
         right: 18px !important;
-        bottom: 94px !important;
+        bottom: 96px !important;
         font-size: 1.25rem !important;
         z-index: 99998 !important;
-        background: linear-gradient(135deg, #00a6ff, #007bff) !important;
+        background: #0088cc !important;
     }
 }
 
-/* Small phones */
+/* Small mobile */
 @media only screen and (max-width: 480px) {
     body {
-        padding-bottom: 88px !important;
+        padding-bottom: 80px !important;
     }
 
     .header {
@@ -783,34 +729,31 @@ footer p {
     }
 
     .logo span {
-        font-size: 1.38rem !important;
+        font-size: 1.35rem !important;
     }
 
     .l365-app-bottom-nav {
         height: 76px !important;
-        padding-left: 12px !important;
-        padding-right: 12px !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
     }
 
     .l365-nav-item {
-        height: 64px !important;
+        height: 66px !important;
+        gap: 5px !important;
     }
 
-    .l365-nav-icon {
-        font-size: 1.45rem !important;
+    .l365-nav-icon,
+    .l365-nav-icon i {
+        font-size: 23px !important;
     }
 
     .l365-nav-label {
-        font-size: 0.7rem !important;
-    }
-
-    .l365-nav-item.active::before {
-        width: 42px !important;
-        height: 4px !important;
+        font-size: 11.5px !important;
     }
 
     .telegram-float {
         right: 16px !important;
-        bottom: 90px !important;
+        bottom: 92px !important;
     }
 }
