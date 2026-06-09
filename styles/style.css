@@ -873,3 +873,73 @@ footer p {
     border-radius: 14px !important;
     overflow: hidden !important;
 }
+
+/* Product detail price + action row */
+.detail-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.price-note {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.price-note .price-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--l365-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.price-note strong {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--l365-blue);
+}
+
+.price-note small {
+    font-size: 0.9rem;
+    color: var(--l365-muted);
+}
+
+.detail-action-row .btn-card {
+    margin-top: 0;
+    white-space: nowrap;
+}
+
+/* Mobile center align */
+@media (max-width: 768px) {
+    .detail-action-row {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+    }
+
+    .price-note {
+        align-items: center;
+    }
+
+    .price-note strong {
+        font-size: 2.1rem;
+    }
+
+    .price-note small {
+        max-width: 260px;
+        line-height: 1.4;
+    }
+
+    .detail-action-row .btn-card {
+        width: 100%;
+        max-width: 220px;
+        text-align: center;
+    }
+}
