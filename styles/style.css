@@ -73,6 +73,7 @@ body.dark-mode {
     height: 50px !important;
     object-fit: contain;
     display: block;
+    border-radius: 12px;
 }
 
 .logo span {
