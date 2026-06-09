@@ -769,132 +769,6 @@ footer p {
         display: none !important;
     }
 
-    /* Bottom Navigation */
-    .mobile-bottom-nav {
-        position: fixed;
-        left: 14px;
-        right: 14px;
-        bottom: 14px;
-        height: 76px;
-
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        align-items: center;
-
-        background:
-            radial-gradient(circle at top left, rgba(94, 79, 204, 0.22), transparent 38%),
-            radial-gradient(circle at bottom right, rgba(229, 170, 37, 0.18), transparent 38%),
-            linear-gradient(135deg, rgba(18, 18, 28, 0.96), rgba(34, 30, 62, 0.96));
-
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-
-        border: 1px solid rgba(255, 255, 255, 0.10);
-        border-radius: 26px;
-
-        box-shadow:
-            0 20px 45px rgba(0, 0, 0, 0.35),
-            0 8px 18px rgba(50, 43, 102, 0.20),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
-        z-index: 3000;
-        overflow: hidden;
-    }
-
-    .mobile-bottom-nav::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 22px;
-        right: 22px;
-        height: 1px;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.45),
-            transparent
-        );
-        pointer-events: none;
-    }
-
-    .bottom-nav-item {
-        height: 100%;
-        position: relative;
-        z-index: 1;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        gap: 5px;
-        text-decoration: none;
-
-        color: rgba(255, 255, 255, 0.58);
-        font-size: 0.72rem;
-        font-weight: 700;
-        line-height: 1;
-
-        transition: all 0.25s ease;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    .bottom-nav-item i {
-        font-size: 1.25rem;
-        line-height: 1;
-        transition: all 0.25s ease;
-    }
-
-    .bottom-nav-item span {
-        font-size: 0.72rem;
-        line-height: 1;
-    }
-
-    .bottom-nav-item.active {
-        color: #ffffff;
-    }
-
-    .bottom-nav-item.active i {
-        color: var(--l365-gold);
-        transform: translateY(-2px);
-        text-shadow: 0 0 18px rgba(229, 170, 37, 0.38);
-    }
-
-    .bottom-nav-item.active::before {
-        content: "";
-        position: absolute;
-        top: 9px;
-        width: 34px;
-        height: 4px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, var(--l365-gold), var(--l365-primary));
-        box-shadow: 0 0 16px rgba(229, 170, 37, 0.35);
-    }
-
-    .bottom-nav-item.active::after {
-        content: "";
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        border-radius: 18px;
-
-        background: linear-gradient(
-            135deg,
-            rgba(229, 170, 37, 0.16),
-            rgba(94, 79, 204, 0.24)
-        );
-
-        z-index: -1;
-    }
-
-    .bottom-nav-item:hover {
-        color: #ffffff;
-    }
-
-    .bottom-nav-item:active {
-        transform: scale(0.94);
-    }
-
     /* Telegram floating button moves above bottom nav */
     .telegram-float {
         width: 50px !important;
@@ -982,5 +856,277 @@ footer p {
         height: 48px !important;
         right: 14px !important;
         bottom: 94px !important;
+    }
+}
+
+/* =========================================================
+   Learning365 Mobile App Bottom Navigation
+========================================================= */
+
+:root {
+    --l365-primary: #5e4fcc;
+    --l365-dark: #322b66;
+    --l365-deep: #201948;
+    --l365-gold: #e5aa25;
+    --l365-blue: #0088ff;
+}
+
+/* Desktop hidden */
+.l365-app-bottom-nav {
+    display: none !important;
+}
+
+/* Mobile only */
+@media only screen and (max-width: 991px) {
+    body {
+        padding-bottom: 115px !important;
+    }
+
+    /* Hide old mobile hamburger */
+    .mobile-menu-btn {
+        display: none !important;
+    }
+
+    .nav-menu {
+        display: none !important;
+    }
+
+    /* Center logo in mobile header */
+    .header {
+        height: 78px !important;
+        background: #ffffff !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 2000 !important;
+    }
+
+    .nav-container {
+        height: 78px !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 16px !important;
+        margin: 0 !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .logo {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        margin: 0 auto !important;
+        text-decoration: none !important;
+    }
+
+    .logo img {
+        width: 54px !important;
+        height: 54px !important;
+        object-fit: contain !important;
+    }
+
+    .logo span {
+        font-size: 1.55rem !important;
+        font-weight: 800 !important;
+        color: #333333 !important;
+        line-height: 1 !important;
+    }
+
+    /* Real app bottom nav */
+    .l365-app-bottom-nav {
+        position: fixed !important;
+        left: 16px !important;
+        right: 16px !important;
+        bottom: 18px !important;
+
+        height: 86px !important;
+        padding: 8px 10px !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        align-items: center !important;
+        gap: 6px !important;
+
+        background:
+            radial-gradient(circle at top left, rgba(94, 79, 204, 0.35), transparent 35%),
+            radial-gradient(circle at bottom right, rgba(229, 170, 37, 0.25), transparent 35%),
+            linear-gradient(135deg, rgba(30, 26, 64, 0.98), rgba(18, 18, 30, 0.98)) !important;
+
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 30px !important;
+
+        box-shadow:
+            0 22px 55px rgba(0, 0, 0, 0.45),
+            0 10px 25px rgba(50, 43, 102, 0.28),
+            inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+
+        backdrop-filter: blur(22px) !important;
+        -webkit-backdrop-filter: blur(22px) !important;
+
+        z-index: 99999 !important;
+        overflow: hidden !important;
+    }
+
+    .l365-app-bottom-nav::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 28px !important;
+        right: 28px !important;
+        height: 1px !important;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.55),
+            transparent
+        ) !important;
+    }
+
+    .l365-nav-item {
+        height: 70px !important;
+        border-radius: 22px !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 5px !important;
+
+        color: rgba(255, 255, 255, 0.62) !important;
+        text-decoration: none !important;
+        border: none !important;
+        outline: none !important;
+
+        font-size: 0.78rem !important;
+        font-weight: 800 !important;
+        line-height: 1 !important;
+
+        position: relative !important;
+        transition: all 0.25s ease !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+
+    .l365-nav-item:hover,
+    .l365-nav-item:focus,
+    .l365-nav-item:active {
+        text-decoration: none !important;
+    }
+
+    .l365-nav-icon {
+        width: 34px !important;
+        height: 34px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        border-radius: 14px !important;
+        font-size: 1.3rem !important;
+        line-height: 1 !important;
+
+        transition: all 0.25s ease !important;
+    }
+
+    .l365-nav-label {
+        font-size: 0.76rem !important;
+        font-weight: 800 !important;
+        line-height: 1 !important;
+    }
+
+    .l365-nav-item.active {
+        color: #ffffff !important;
+        background: linear-gradient(
+            135deg,
+            rgba(94, 79, 204, 0.36),
+            rgba(229, 170, 37, 0.14)
+        ) !important;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+    }
+
+    .l365-nav-item.active::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 6px !important;
+        width: 34px !important;
+        height: 4px !important;
+        border-radius: 999px !important;
+        background: linear-gradient(90deg, var(--l365-gold), var(--l365-primary)) !important;
+        box-shadow: 0 0 18px rgba(229, 170, 37, 0.55) !important;
+    }
+
+    .l365-nav-item.active .l365-nav-icon {
+        color: var(--l365-gold) !important;
+        transform: translateY(-2px) !important;
+        text-shadow: 0 0 20px rgba(229, 170, 37, 0.45) !important;
+    }
+
+    .l365-nav-item:active {
+        transform: scale(0.94) !important;
+    }
+
+    /* Telegram button move above bottom menu */
+    .telegram-float {
+        width: 52px !important;
+        height: 52px !important;
+        right: 20px !important;
+        bottom: 118px !important;
+        font-size: 1.25rem !important;
+        background: linear-gradient(135deg, #00a6ff, #007bff) !important;
+        z-index: 99998 !important;
+    }
+}
+
+/* Small phones */
+@media only screen and (max-width: 480px) {
+    body {
+        padding-bottom: 108px !important;
+    }
+
+    .header {
+        height: 74px !important;
+    }
+
+    .nav-container {
+        height: 74px !important;
+    }
+
+    .logo img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .logo span {
+        font-size: 1.38rem !important;
+    }
+
+    .l365-app-bottom-nav {
+        left: 10px !important;
+        right: 10px !important;
+        bottom: 10px !important;
+        height: 82px !important;
+        padding: 7px 8px !important;
+        border-radius: 27px !important;
+    }
+
+    .l365-nav-item {
+        height: 66px !important;
+        border-radius: 20px !important;
+    }
+
+    .l365-nav-icon {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 1.2rem !important;
+    }
+
+    .l365-nav-label {
+        font-size: 0.7rem !important;
+    }
+
+    .telegram-float {
+        right: 16px !important;
+        bottom: 104px !important;
     }
 }
