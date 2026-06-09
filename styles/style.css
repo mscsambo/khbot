@@ -864,3 +864,12 @@ footer p {
         bottom: 92px !important;
     }
 }
+
+.logo img {
+    width: 50px !important;
+    height: 50px !important;
+    object-fit: cover !important;
+    display: block !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+}
