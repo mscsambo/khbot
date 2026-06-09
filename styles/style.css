@@ -759,22 +759,33 @@ footer p {
 }
 
 /* =========================================================
-   Final Mobile Clean Override
-   - Hide top header/menu on mobile
-   - Keep sticky app-style bottom menu
-   - Add footer space above bottom menu
-   - Apply recommended cleaner dark color
+   FINAL FIX - Mobile Clean App View
+   This block MUST stay at the very bottom of style.css
 ========================================================= */
-@media only screen and (max-width: 991px) {
-    /* Hide the full top menu/header on mobile for a clean app view */
+
+/* Hide desktop/top header on mobile and tablet */
+@media only screen and (max-width: 1199px) {
+    header.header,
     .header,
+    .header *,
     .nav-container,
     .nav-menu,
-    .mobile-menu-btn {
+    .mobile-menu-btn,
+    #mobileMenuBtn {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
     }
 
     body {
+        padding-top: 0 !important;
         padding-bottom: 82px !important;
     }
 
@@ -782,12 +793,53 @@ footer p {
         padding-bottom: 110px !important;
     }
 
+    /* Keep bottom menu visible */
+    .l365-app-bottom-nav,
+    .l365-app-bottom-nav * {
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
     .l365-app-bottom-nav {
+        display: grid !important;
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 78px !important;
+        padding: 5px 18px calc(5px + env(safe-area-inset-bottom)) !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        align-items: center !important;
         background: #070708 !important;
+        border-top: 1px solid #1c1c1f !important;
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35) !important;
+        z-index: 999999 !important;
+    }
+
+    .l365-nav-item {
+        display: flex !important;
+        height: 68px !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        color: #9d9da3 !important;
+        text-decoration: none !important;
+        background: transparent !important;
+    }
+
+    .l365-nav-item.active {
+        color: #ffffff !important;
     }
 
     .l365-nav-item.active::before {
         background: #cfcfcf !important;
+    }
+
+    .telegram-float {
+        bottom: 96px !important;
     }
 }
 
@@ -799,5 +851,15 @@ footer p {
 
     footer {
         padding-bottom: 104px !important;
+    }
+
+    .l365-app-bottom-nav {
+        height: 76px !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    .telegram-float {
+        bottom: 92px !important;
     }
 }
