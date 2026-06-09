@@ -757,3 +757,47 @@ footer p {
         bottom: 92px !important;
     }
 }
+
+/* =========================================================
+   Final Mobile Clean Override
+   - Hide top header/menu on mobile
+   - Keep sticky app-style bottom menu
+   - Add footer space above bottom menu
+   - Apply recommended cleaner dark color
+========================================================= */
+@media only screen and (max-width: 991px) {
+    /* Hide the full top menu/header on mobile for a clean app view */
+    .header,
+    .nav-container,
+    .nav-menu,
+    .mobile-menu-btn {
+        display: none !important;
+    }
+
+    body {
+        padding-bottom: 82px !important;
+    }
+
+    footer {
+        padding-bottom: 110px !important;
+    }
+
+    .l365-app-bottom-nav {
+        background: #070708 !important;
+    }
+
+    .l365-nav-item.active::before {
+        background: #cfcfcf !important;
+    }
+}
+
+/* Small mobile final adjustment */
+@media only screen and (max-width: 480px) {
+    body {
+        padding-bottom: 80px !important;
+    }
+
+    footer {
+        padding-bottom: 104px !important;
+    }
+}
