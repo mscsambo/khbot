@@ -1,6 +1,6 @@
 /* Learning365 Styles - Main stylesheet */
 
-:root {
+/* :root {
     --l365-primary: #063958;
     --l365-dark: #063958;
     --l365-deep: #063958;
@@ -9,8 +9,28 @@
     --l365-white: #ffffff;
     --l365-text: #333333;
     --l365-muted: #666666;
-}
+} */
+:root {
 
+    /* Learning365 Premium Theme */
+
+    --l365-primary: #0F4C81;
+    --l365-primary-dark: #071A2C;
+    --l365-navy: #0A2E4E;
+
+    --l365-gold: #D4AF37;
+    --l365-gold-light: #F2D27A;
+
+    --l365-white: #FFFFFF;
+
+    --l365-text: #EAEAEA;
+    --l365-muted: #B8C2CC;
+
+    --l365-card: rgba(16,43,69,.75);
+
+    --l365-radius: 20px;
+
+}
 /* Reset */
 * {
     margin: 0;
