@@ -1,15 +1,5 @@
 /* Learning365 Styles - Main stylesheet */
 
-/* :root {
-    --l365-primary: #063958;
-    --l365-dark: #063958;
-    --l365-deep: #063958;
-    --l365-blue: #007bff;
-    --l365-gold: #e5aa25;
-    --l365-white: #ffffff;
-    --l365-text: #333333;
-    --l365-muted: #666666;
-} */
 :root {
   /* Learning365 Premium Theme */
 
@@ -178,7 +168,6 @@ body.dark-mode {
   font-size: 0.9rem;
   margin-top: 10px;
   width: 25%;
-
 }
 
 .btn-card:hover {
@@ -229,6 +218,7 @@ body.dark-mode {
   display: flex;
   gap: 20px;
   justify-content: center;
+  padding: 10px;
 }
 
 /* Features Section */
@@ -296,34 +286,34 @@ body.dark-mode {
   margin-bottom: 20px;
 }
 
-.products-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:30px;
-    margin-bottom:40px;
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
 }
 
-@media (max-width:768px){
-    .products-grid{
-        grid-template-columns:1fr;
-    }
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .product-card {
-    background: rgba(16, 43, 69, 0.75);
-    backdrop-filter: blur(14px);
+  background: rgba(16, 43, 69, 0.75);
+  backdrop-filter: blur(14px);
 
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 20px;
 
-    padding: 24px;
+  padding: 24px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    min-height: 320px;
+  min-height: 320px;
 
-    box-shadow: 0 8px 30px rgba(0,0,0,.25);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
 .product-card:hover {
@@ -351,16 +341,16 @@ body.dark-mode {
   font-size: 0.8rem;
 }
 
-.product-card-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    margin-bottom:24px;
+.product-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
 }
 
-.product-card-price{
-    padding-top:8px;
-    padding-right:8px;
+.product-card-price {
+  padding-top: 8px;
+  padding-right: 8px;
 }
 
 .product-logo-wrap {
@@ -380,7 +370,7 @@ body.dark-mode {
 }
 
 .price {
-  font-size: 1.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: var(--l365-blue);
 }
@@ -403,7 +393,7 @@ body.dark-mode {
 
 /* Product Detail Page */
 .product-page {
-  background-color: #f9f9f9;
+  background-color: #0a2e4e;
 }
 
 .product-hero {
@@ -452,7 +442,7 @@ body.dark-mode {
 }
 
 .product-detail-card {
-  background-color: #063958;;
+  background-color: #063958;
   border-radius: 10px;
   padding: 40px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -531,6 +521,7 @@ footer {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 footer p {
