@@ -136,6 +136,7 @@ body.dark-mode {
 
 .btn-primary:hover {
   background: #f2d27a;
+  color: white;
 
   box-shadow:
     0 0 15px rgba(212, 175, 55, 0.5),
